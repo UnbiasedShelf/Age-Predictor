@@ -17,23 +17,54 @@ val AbhayaLibre = FontFamily(
     Font(R.font.abhayalibre_bold, FontWeight.Bold)
 )
 
+val ABeeZee = FontFamily(
+    Font(R.font.abeezee_regular)
+)
+
 // Set of Material typography styles to start with
 val Typography = Typography(
     body1 = TextStyle(
         fontFamily = Rubik,
         fontWeight = FontWeight.Medium,
-        fontSize = 16.sp
+        fontSize = 16.sp,
+        lineHeight = 19.sp
     ),
     body2 = TextStyle(
+        fontFamily = ABeeZee,
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp,
+        lineHeight = 19.sp
+    ),
+    subtitle2 = TextStyle(
         fontFamily = Rubik,
         fontWeight = FontWeight.Normal,
-        fontSize = 20.sp
+        fontSize = 20.sp,
+        lineHeight = 24.sp
     ),
     h1 = TextStyle(
+        fontFamily = Rubik,
+        fontWeight = FontWeight.Light,
+        fontSize = 50.sp,
+        lineHeight = 30.sp
+    ),
+    h5 = TextStyle(
+        fontFamily = Rubik,
+        fontWeight = FontWeight.Medium,
+        fontSize = 20.sp,
+        lineHeight = 30.sp
+    ),
+    h6 = TextStyle(
         fontFamily = AbhayaLibre,
         fontWeight = FontWeight.Bold,
-        fontSize = 20.sp
+        fontSize = 20.sp,
+        lineHeight = 24.sp
+    ),
+    caption = TextStyle(
+        fontFamily = Rubik,
+        fontWeight = FontWeight.Normal,
+        fontSize = 14.sp,
+        lineHeight = 17.sp
     )
-    /* Other default text styles to override */
+    /* Todo dialog fonts */
 )
 

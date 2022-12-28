@@ -1,36 +1,24 @@
 package com.unbiasedshelf.agepredictor.ui.theme
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 
-// todo dark theme?
-private val DarkColorPalette = darkColors(
-    primary = AccentGreen,
-    onPrimary = BGBlue,
+private val ColorPalette = lightColors(
+    primary = PrimaryGray,
+    onPrimary = onPrimaryGray,
+    secondary = AccentGreen,
+    onSecondary = BGBlue,
     surface = SurfaceGray,
-    onSurface = OnSurfaceBlue
-)
-
-private val LightColorPalette = lightColors(
-    primary = AccentGreen,
-    onPrimary = BGBlue,
-    surface = SurfaceGray,
-    onSurface = OnSurfaceBlue
+    onSurface = OnSurfaceBlue,
+    background = White,
+    onBackground = BGBlue
 )
 
 @Composable
-fun AgePredictorTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
-    val colors = if (darkTheme) {
-        DarkColorPalette
-    } else {
-        LightColorPalette
-    }
-
+fun AgePredictorTheme(content: @Composable () -> Unit) {
     MaterialTheme(
-        colors = colors,
+        colors = ColorPalette,
         typography = Typography,
         shapes = Shapes,
         content = content
