@@ -63,7 +63,13 @@ val Typography = Typography(
         fontWeight = FontWeight.Normal,
         fontSize = 14.sp,
         lineHeight = 17.sp
-    )
+    ),
+    button = TextStyle(
+        fontFamily = AbhayaLibre,
+        fontWeight = FontWeight.Bold,
+        fontSize = 16.sp,
+        lineHeight = 19.sp
+    ),
     /* Todo dialog fonts */
 )
 

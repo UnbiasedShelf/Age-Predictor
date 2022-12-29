@@ -6,6 +6,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface AgifyApi {
-    @GET
+    @GET(".")
     suspend fun getAgeByName(@Query("name") name: String): Response<AgePrediction>
 }

@@ -42,7 +42,7 @@ fun MainScreen() {
         NavHost(
             navController = navController,
             startDestination = Route.Home,
-            modifier = Modifier.padding(it)
+            modifier = Modifier.padding(bottom = it.calculateBottomPadding())
         ) {
             composable(Route.Home) { HomeScreen() }
             composable(Route.Favorites) { FavoritesScreen() }

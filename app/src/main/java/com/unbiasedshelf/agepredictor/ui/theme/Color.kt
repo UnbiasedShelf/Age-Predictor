@@ -16,6 +16,7 @@ val White = Color.White
 val Gray = Color(0xFFADB3BC)
 val Gray1 = Color(0xFFC4CCCC)
 val Gray2 = Color(0xFFECECEC)
+val Gray3 = Color(0xFF484848)
 
 val BottomNavActiveGray = Color(0xFF555E65)
 val BottomNavInactiveGray =  Color(0xFF999999)
