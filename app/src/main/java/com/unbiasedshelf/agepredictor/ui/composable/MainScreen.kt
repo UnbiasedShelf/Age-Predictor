@@ -10,13 +10,16 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.unbiasedshelf.agepredictor.R
 import com.unbiasedshelf.agepredictor.ui.composable.favorites.FavoritesScreen
+import com.unbiasedshelf.agepredictor.ui.composable.favorites.FavoritesViewModel
 import com.unbiasedshelf.agepredictor.ui.composable.home.HomeScreen
+import com.unbiasedshelf.agepredictor.ui.composable.home.HomeViewModel
 import com.unbiasedshelf.agepredictor.ui.theme.BottomNavActiveGray
 import com.unbiasedshelf.agepredictor.ui.theme.BottomNavInactiveGray
 
@@ -44,8 +47,17 @@ fun MainScreen() {
             startDestination = Route.Home,
             modifier = Modifier.padding(bottom = it.calculateBottomPadding())
         ) {
-            composable(Route.Home) { HomeScreen() }
-            composable(Route.Favorites) { FavoritesScreen() }
+            composable(Route.Home) {
+                val homeViewModel = hiltViewModel<HomeViewModel>()
+                HomeScreen(homeViewModel)
+            }
+            composable(Route.Favorites) {
+                val favoritesViewModel = hiltViewModel<FavoritesViewModel>()
+                FavoritesScreen(
+                    viewModel = favoritesViewModel,
+                    onBackPressed = { navController.popBackStack() }
+                )
+            }
         }
     }
 }

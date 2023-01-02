@@ -6,4 +6,5 @@
     <string name="placeholder_text">Enter name for the age prediction</string>
     <string name="share">Share</string>
     <string name="add_to_fav">Add To Favorites</string>
+    <string name="delete">Delete</string>
 </resources>

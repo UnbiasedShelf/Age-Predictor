@@ -29,7 +29,7 @@ import com.unbiasedshelf.agepredictor.ui.theme.SearchLabelColor
 import com.unbiasedshelf.agepredictor.ui.theme.SearchTextColor
 
 @Composable
-fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
+fun HomeScreen(viewModel: HomeViewModel) {
     Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 18.dp)) {
         SearchBar(
             value = viewModel.name,
@@ -45,7 +45,7 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
         } else {
             AgeContent(
                 age = viewModel.age ?: 0,
-                onAddToFavoritesClick = { /* TODO */ },
+                onAddToFavoritesClick = { viewModel.addToFavorites() },
                 onShareClick = { /* TODO */ }
             )
         }

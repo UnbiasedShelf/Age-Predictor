@@ -1,17 +1,11 @@
 package com.unbiasedshelf.agepredictor.data.network
 
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import com.unbiasedshelf.agepredictor.data.model.AgePrediction
+import retrofit2.Response
+import retrofit2.http.GET
+import retrofit2.http.Query
 
-object AgifyService {
-    private const val BASE_URL = "https://api.agify.io/"
-
-    val agifyApi: AgifyApi = getRetrofit().create(AgifyApi::class.java)
-
-    private fun getRetrofit(): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
+interface AgifyService {
+    @GET(".")
+    suspend fun getAgeByName(@Query("name") name: String): Response<AgePrediction>
 }
