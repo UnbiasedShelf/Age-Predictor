@@ -1,5 +1,7 @@
 package com.unbiasedshelf.agepredictor.ui.composable.home
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
@@ -14,6 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -43,11 +46,14 @@ fun HomeScreen(viewModel: HomeViewModel) {
             Placeholder(text = stringResource(R.string.placeholder_text))
             Spacer(modifier = Modifier.weight(1f))
         } else {
-            AgeContent(
-                age = viewModel.age ?: 0,
-                onAddToFavoritesClick = { viewModel.addToFavorites() },
-                onShareClick = { /* TODO */ }
-            )
+            viewModel.age?.let { age ->
+                val context = LocalContext.current
+                AgeContent(
+                    age = age,
+                    onAddToFavoritesClick = { viewModel.addToFavorites() },
+                    onShareClick = { context.share(viewModel.name, age) }
+                )
+            }
         }
     }
 }
@@ -197,4 +203,12 @@ private fun AgeCircle(age: Int) {
             modifier = Modifier.align(Alignment.Center)
         )
     }
+}
+
+private fun Context.share(name: String, age: Int) {
+    val intent = Intent(Intent.ACTION_SEND).apply {
+        type = "text/plain"
+        putExtra(Intent.EXTRA_TEXT, getString(R.string.share_message, name, age))
+    }
+    startActivity(intent)
 }

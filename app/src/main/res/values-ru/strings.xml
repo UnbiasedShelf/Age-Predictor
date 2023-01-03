@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Age Predictor</string>
+    <string name="home">Главная</string>
+    <string name="favorites">Избранное</string>
+    <string name="search">Поиск</string>
+    <string name="placeholder_text">Введите имя для предсказания возраста</string>
+    <string name="share">Поделиться</string>
+    <string name="add_to_fav">Добавить в избранное</string>
+    <string name="delete">Удалить</string>
+    <string name="dialog_confirm">Да</string>
+    <string name="dialog_decline">Нет</string>
+    <string name="dialog_message">Вы уверены что хотите удалить выбранное имя из избранных?</string>
+    <string name="dialog_title">Удалить имя</string>
+    <string name="share_message">Привет! Средний возраст людей с именем %1$s - %2$d. Посмотри это приложение https://github.com/UnbiasedShelf/Age-Predictor</string>
+</resources>

@@ -44,6 +44,7 @@ fun MainScreen() {
                 }
             )
         },
+        // blur works only on Android 12+
         modifier = if (isBlurred) Modifier.blur(4.dp) else Modifier
     ) { paddingValues ->
         NavHost(
