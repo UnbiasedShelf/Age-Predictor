@@ -7,4 +7,8 @@
     <string name="share">Share</string>
     <string name="add_to_fav">Add To Favorites</string>
     <string name="delete">Delete</string>
+    <string name="dialog_confirm">Yes</string>
+    <string name="dialog_decline">No</string>
+    <string name="dialog_message">Are you sure you want to delete selected names from favorites?</string>
+    <string name="dialog_title">Delete name</string>
 </resources>

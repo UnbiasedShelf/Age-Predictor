@@ -70,6 +70,5 @@ val Typography = Typography(
         fontSize = 16.sp,
         lineHeight = 19.sp
     ),
-    /* Todo dialog fonts */
 )
 

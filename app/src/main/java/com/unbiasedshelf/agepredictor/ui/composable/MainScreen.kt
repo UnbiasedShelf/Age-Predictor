@@ -6,6 +6,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -28,6 +29,8 @@ fun MainScreen() {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
 
+    var isBlurred by remember { mutableStateOf(false) }
+
     Scaffold(
         bottomBar = {
             AgifyBottomAppBar(
@@ -40,12 +43,13 @@ fun MainScreen() {
                     }
                 }
             )
-        }
-    ) {
+        },
+        modifier = if (isBlurred) Modifier.blur(4.dp) else Modifier
+    ) { paddingValues ->
         NavHost(
             navController = navController,
             startDestination = Route.Home,
-            modifier = Modifier.padding(bottom = it.calculateBottomPadding())
+            modifier = Modifier.padding(bottom = paddingValues.calculateBottomPadding())
         ) {
             composable(Route.Home) {
                 val homeViewModel = hiltViewModel<HomeViewModel>()
@@ -55,7 +59,8 @@ fun MainScreen() {
                 val favoritesViewModel = hiltViewModel<FavoritesViewModel>()
                 FavoritesScreen(
                     viewModel = favoritesViewModel,
-                    onBackPressed = { navController.popBackStack() }
+                    onBackPressed = { navController.popBackStack() },
+                    onBlurredChange = { isBlurred = it }
                 )
             }
         }
