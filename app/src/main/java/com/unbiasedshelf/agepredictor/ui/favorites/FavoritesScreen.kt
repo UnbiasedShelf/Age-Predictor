@@ -5,6 +5,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.*
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -233,6 +234,11 @@ private fun DeleteDialog(
             modifier = Modifier
                 .fillMaxSize()
                 .background(Color.LightGray.copy(0.6f))
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null,
+                    onClick = onDismissRequest
+                )
         ) {
             DeleteDialogCard(
                 onDismissRequest = onDismissRequest,
@@ -254,6 +260,7 @@ private fun DeleteDialogCard(
             .padding(horizontal = 16.dp)
             .fillMaxWidth()
             .clip(shape = MaterialTheme.shapes.large)
+            .clickable(enabled = false) { }
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,

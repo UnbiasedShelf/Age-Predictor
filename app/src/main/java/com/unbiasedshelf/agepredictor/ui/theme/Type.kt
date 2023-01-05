@@ -9,7 +9,9 @@ import androidx.compose.ui.unit.sp
 import com.unbiasedshelf.agepredictor.R
 
 val Rubik = FontFamily(
-    Font(R.font.rubik_wght)
+    Font(R.font.rubik_regular, FontWeight.Normal),
+    Font(R.font.rubik_light, FontWeight.Light),
+    Font(R.font.rubik_medium, FontWeight.Medium),
 )
 
 val AbhayaLibre = FontFamily(
