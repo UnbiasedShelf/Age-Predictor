@@ -50,6 +50,7 @@ fun FavoritesScreen(
     }
 
     val namesToRemove = remember { mutableStateListOf<String>() }
+
     var isSelectionMode by remember {
         mutableStateOf(false)
     }
@@ -130,11 +131,12 @@ fun FavoritesScreen(
     }
 
     if (showDeleteDialog) {
-        val context = LocalContext.current
         DeleteDialog(
             onDismissRequest = { showDeleteDialog = false },
             onConfirmClick = {
                 val result = viewModel.removeFromFavorites(namesToRemove)
+                onSelectionModeChanged(false)
+                viewModel.getFavorites()
                 showDeleteDialog = false
                 result.showToast(context)
             }

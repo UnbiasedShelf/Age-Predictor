@@ -53,14 +53,23 @@ fun MainScreen() {
         NavHost(
             navController = navController,
             startDestination = Route.Home,
+            route = Route.NavGraph,
             modifier = Modifier.padding(bottom = paddingValues.calculateBottomPadding())
         ) {
             composable(Route.Home) {
-                val homeViewModel = hiltViewModel<HomeViewModel>()
+                // for scoping viewmodel instance to navgraph
+                val navGraphEntry = remember(it) {
+                    navController.getBackStackEntry(Route.NavGraph)
+                }
+                val homeViewModel = hiltViewModel<HomeViewModel>(navGraphEntry)
                 HomeScreen(homeViewModel)
             }
             composable(Route.Favorites) {
-                val favoritesViewModel = hiltViewModel<FavoritesViewModel>()
+                // for scoping viewmodel instance to navgraph
+                val navGraphEntry = remember(it) {
+                    navController.getBackStackEntry(Route.NavGraph)
+                }
+                val favoritesViewModel = hiltViewModel<FavoritesViewModel>(navGraphEntry)
                 FavoritesScreen(
                     viewModel = favoritesViewModel,
                     onBackPressed = { navController.popBackStack() },
@@ -135,6 +144,7 @@ private fun AppBarItem(
 }
 
 private object Route {
+    const val NavGraph = "nav_graph"
     const val Home = "home"
     const val Favorites = "favorites"
 }
