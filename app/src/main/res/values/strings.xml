@@ -14,7 +14,7 @@
     <string name="share_message">Hey! The average age of people named %1$s is %2$d. Check out this app https://github.com/UnbiasedShelf/Age-Predictor</string>
 
     <string name="add_fav_success">Name added to favorites successfully</string>
-    <string name="remove_fav_success">Names removed from favorites successfully</string>
+    <string name="remove_fav_success">Selected names removed from favorites successfully</string>
 
     <!-- Network error messages -->
     <string name="error_unable_to_resolve_host">Error: Unable to resolve host</string>

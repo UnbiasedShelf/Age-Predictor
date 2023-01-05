@@ -14,7 +14,7 @@
     <string name="dialog_title">Удалить имя</string>
     <string name="share_message">Привет! Средний возраст людей с именем %1$s - %2$d. Посмотри это приложение https://github.com/UnbiasedShelf/Age-Predictor</string>
     <string name="add_fav_success">Имя успешно добавлено в избранное</string>
-    <string name="remove_fav_success">Имена успешно удалены из избранного</string>
+    <string name="remove_fav_success">Выбранные имена успешно удалены из избранного</string>
     <string name="error_unable_to_resolve_host">Ошибка: Не удается адрес хоста</string>
     <string name="error_timeout">Ошибка: Время ожидания истекло</string>
     <string name="error_name_not_found">Ошибка: Заданное имя не найдено</string>
