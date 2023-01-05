@@ -1,4 +1,4 @@
-package com.unbiasedshelf.agepredictor.ui.composable.common
+package com.unbiasedshelf.agepredictor.ui.common
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.height

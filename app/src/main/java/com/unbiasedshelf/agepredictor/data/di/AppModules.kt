@@ -15,6 +15,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
+import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -37,6 +38,7 @@ class AppModules {
         val cache = Cache(File(application.cacheDir, "agify_cache"), sizeOfCache)
         val client = OkHttpClient()
             .newBuilder()
+            .connectTimeout(5, TimeUnit.SECONDS)
             .cache(cache)
             .addNetworkInterceptor(CachingControlInterceptor())
             .build()

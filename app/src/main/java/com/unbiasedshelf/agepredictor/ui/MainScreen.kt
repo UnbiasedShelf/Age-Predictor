@@ -1,4 +1,4 @@
-package com.unbiasedshelf.agepredictor.ui.composable
+package com.unbiasedshelf.agepredictor.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -17,10 +17,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.unbiasedshelf.agepredictor.R
-import com.unbiasedshelf.agepredictor.ui.composable.favorites.FavoritesScreen
-import com.unbiasedshelf.agepredictor.ui.composable.favorites.FavoritesViewModel
-import com.unbiasedshelf.agepredictor.ui.composable.home.HomeScreen
-import com.unbiasedshelf.agepredictor.ui.composable.home.HomeViewModel
+import com.unbiasedshelf.agepredictor.ui.favorites.FavoritesScreen
+import com.unbiasedshelf.agepredictor.ui.favorites.FavoritesViewModel
+import com.unbiasedshelf.agepredictor.ui.home.HomeScreen
+import com.unbiasedshelf.agepredictor.ui.home.HomeViewModel
 import com.unbiasedshelf.agepredictor.ui.theme.BottomNavActiveGray
 import com.unbiasedshelf.agepredictor.ui.theme.BottomNavInactiveGray
 
@@ -29,6 +29,7 @@ fun MainScreen() {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
 
+    // for showing dialogs with blurred background
     var isBlurred by remember { mutableStateOf(false) }
 
     Scaffold(
@@ -38,7 +39,9 @@ fun MainScreen() {
                 onItemClick = { destination ->
                     navController.navigate(destination) {
                         if (destination == Route.Home) {
-                            popUpTo(Route.Home) { inclusive = true }
+                            popUpTo(Route.Home) {
+                                inclusive = true
+                            }
                         }
                     }
                 }
@@ -108,7 +111,7 @@ private fun AppBarItem(
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.clickable { onClick(route) }
+        modifier = Modifier.clickable(enabled = currentDestination != route) { onClick(route) }
     ) {
         val color by remember(currentDestination) {
             val isActive = route == currentDestination

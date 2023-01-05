@@ -12,4 +12,20 @@
     <string name="dialog_message">Are you sure you want to delete selected names from favorites?</string>
     <string name="dialog_title">Delete name</string>
     <string name="share_message">Hey! The average age of people named %1$s is %2$d. Check out this app https://github.com/UnbiasedShelf/Age-Predictor</string>
+
+    <string name="add_fav_success">Name added to favorites successfully</string>
+    <string name="remove_fav_success">Names removed from favorites successfully</string>
+
+    <!-- Network error messages -->
+    <string name="error_unable_to_resolve_host">Error: Unable to resolve host</string>
+    <string name="error_timeout">Error: Timeout exceeded</string>
+    <string name="error_name_not_found">Error: Given name not found</string>
+    <string name="error_too_many_requests">Error: Request limit reached</string>
+    <string name="error_unexpected">Unexpected Error</string>
+
+    <!-- Shared preferences error messages -->
+    <string name="error_unable_to_add_fav">Error: Unable to add to favorites</string>
+    <string name="error_unable_to_remove_fav">Error: Unable to remove from favorites</string>
+    <string name="error_unable_to_load_fav">Error: Unable to load favorites</string>
+    <string name="error_blank_name">Error: Name should not be blank</string>
 </resources>

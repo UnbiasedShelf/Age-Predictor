@@ -1,4 +1,4 @@
-package com.unbiasedshelf.agepredictor.ui.composable.home
+package com.unbiasedshelf.agepredictor.ui.home
 
 import android.content.Context
 import android.content.Intent
@@ -12,6 +12,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,9 +24,10 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.unbiasedshelf.agepredictor.R
-import com.unbiasedshelf.agepredictor.ui.composable.common.AgifyButton
+import com.unbiasedshelf.agepredictor.data.repository.Status
+import com.unbiasedshelf.agepredictor.ui.common.AgifyButton
+import com.unbiasedshelf.agepredictor.ui.common.showToast
 import com.unbiasedshelf.agepredictor.ui.theme.Gray1
 import com.unbiasedshelf.agepredictor.ui.theme.Gray3
 import com.unbiasedshelf.agepredictor.ui.theme.SearchLabelColor
@@ -40,20 +42,28 @@ fun HomeScreen(viewModel: HomeViewModel) {
             onSearchClick = { viewModel.getAge() }
         )
 
-        // todo complex logic
-        if (viewModel.age == null) {
-            Spacer(modifier = Modifier.weight(1f))
-            Placeholder(text = stringResource(R.string.placeholder_text))
-            Spacer(modifier = Modifier.weight(1f))
-        } else {
-            viewModel.age?.let { age ->
-                val context = LocalContext.current
+        val context = LocalContext.current
+        LaunchedEffect(viewModel.ageStatus) {
+            if (viewModel.ageStatus is Status.Error) {
+                viewModel.ageStatus?.showToast(context)
+            }
+        }
+
+        if (viewModel.ageStatus is Status.Success) {
+            (viewModel.ageStatus as? Status.Success<Int>)?.value?.let { age ->
                 AgeContent(
                     age = age,
-                    onAddToFavoritesClick = { viewModel.addToFavorites() },
+                    onAddToFavoritesClick = {
+                        val result = viewModel.addToFavorites()
+                        result.showToast(context)
+                    },
                     onShareClick = { context.share(viewModel.name, age) }
                 )
             }
+        } else {
+            Spacer(modifier = Modifier.weight(1f))
+            Placeholder(text = stringResource(R.string.placeholder_text))
+            Spacer(modifier = Modifier.weight(1f))
         }
     }
 }

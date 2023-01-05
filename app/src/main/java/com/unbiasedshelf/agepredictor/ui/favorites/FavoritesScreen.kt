@@ -1,4 +1,4 @@
-package com.unbiasedshelf.agepredictor.ui.composable.favorites
+package com.unbiasedshelf.agepredictor.ui.favorites
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -23,7 +24,9 @@ import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
 import com.unbiasedshelf.agepredictor.R
 import com.unbiasedshelf.agepredictor.data.model.AgePrediction
-import com.unbiasedshelf.agepredictor.ui.composable.common.AgifyButton
+import com.unbiasedshelf.agepredictor.data.repository.Status
+import com.unbiasedshelf.agepredictor.ui.common.AgifyButton
+import com.unbiasedshelf.agepredictor.ui.common.showToast
 import com.unbiasedshelf.agepredictor.ui.theme.Gray
 import com.unbiasedshelf.agepredictor.ui.theme.Gray2
 
@@ -36,6 +39,14 @@ fun FavoritesScreen(
 ) {
     LaunchedEffect(Unit) {
         viewModel.getFavorites()
+    }
+
+    val context = LocalContext.current
+
+    LaunchedEffect(viewModel.favorites) {
+        if (viewModel.favorites is Status.Error) {
+            viewModel.favorites.showToast(context)
+        }
     }
 
     val namesToRemove = remember { mutableStateListOf<String>() }
@@ -79,23 +90,25 @@ fun FavoritesScreen(
             modifier = Modifier.padding(top = 36.dp, bottom = 25.dp)
         )
 
-        Column(
-            modifier = Modifier
-                .verticalScroll(rememberScrollState())
-                .weight(1f)
-        ) {
-            FavoritesList(
-                agePredictions = viewModel.favorites,
-                selectedNames = namesToRemove,
-                onItemSelected = { name ->
-                    if (namesToRemove.contains(name))
-                        namesToRemove.remove(name)
-                    else
-                        namesToRemove.add(name)
-                },
-                isSelectionMode = isSelectionMode,
-                onSelectionModeChanged = onSelectionModeChanged
-            )
+        if (viewModel.favorites is Status.Success) {
+            Column(
+                modifier = Modifier
+                    .verticalScroll(rememberScrollState())
+                    .weight(1f)
+            ) {
+                FavoritesList(
+                    agePredictions = (viewModel.favorites as Status.Success).value,
+                    selectedNames = namesToRemove,
+                    onItemSelected = { name ->
+                        if (namesToRemove.contains(name))
+                            namesToRemove.remove(name)
+                        else
+                            namesToRemove.add(name)
+                    },
+                    isSelectionMode = isSelectionMode,
+                    onSelectionModeChanged = onSelectionModeChanged
+                )
+            }
         }
 
         AnimatedVisibility(
@@ -117,15 +130,13 @@ fun FavoritesScreen(
     }
 
     if (showDeleteDialog) {
+        val context = LocalContext.current
         DeleteDialog(
             onDismissRequest = { showDeleteDialog = false },
             onConfirmClick = {
-                val isSuccessful = viewModel.removeFromFavorites(namesToRemove)
-                if (isSuccessful) {
-                    namesToRemove.clear()
-                    viewModel.getFavorites()
-                }
+                val result = viewModel.removeFromFavorites(namesToRemove)
                 showDeleteDialog = false
+                result.showToast(context)
             }
         )
     }
@@ -139,7 +150,6 @@ private fun FavoritesList(
     isSelectionMode: Boolean,
     onSelectionModeChanged: (Boolean) -> Unit
 ) {
-
     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
         agePredictions.forEach {
             FavoriteItem(

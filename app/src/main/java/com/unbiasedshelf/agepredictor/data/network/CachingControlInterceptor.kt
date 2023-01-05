@@ -9,7 +9,7 @@ class CachingControlInterceptor : Interceptor {
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalResponse: Response = chain.proceed(chain.request())
-        val maxAge = 60 * 60 * 24 // 1 day in seconds
+        val maxAge = 60 * 60 * 24 // caching requests for a 1 day in seconds
         return originalResponse.newBuilder()
             .header("Cache-Control", "max-age=$maxAge")
             .build()
