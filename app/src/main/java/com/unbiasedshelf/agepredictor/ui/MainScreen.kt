@@ -10,6 +10,7 @@ import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
@@ -57,7 +58,7 @@ fun MainScreen() {
             modifier = Modifier.padding(bottom = paddingValues.calculateBottomPadding())
         ) {
             composable(Route.Home) {
-                // for scoping viewmodel instance to navgraph
+                // for scoping viewModel instance to navGraph
                 val navGraphEntry = remember(it) {
                     navController.getBackStackEntry(Route.NavGraph)
                 }
@@ -65,7 +66,7 @@ fun MainScreen() {
                 HomeScreen(homeViewModel)
             }
             composable(Route.Favorites) {
-                // for scoping viewmodel instance to navgraph
+                // for scoping viewModel instance to navGraph
                 val navGraphEntry = remember(it) {
                     navController.getBackStackEntry(Route.NavGraph)
                 }
@@ -118,12 +119,13 @@ private fun AppBarItem(
     currentDestination: String?,
     onClick: (String) -> Unit
 ) {
+    val isActive by remember(currentDestination) { mutableStateOf(route == currentDestination) }
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.clickable(enabled = currentDestination != route) { onClick(route) }
+        modifier = Modifier.clickable(enabled = !isActive) { onClick(route) }
     ) {
-        val color by remember(currentDestination) {
-            val isActive = route == currentDestination
+        val color by remember(isActive) {
             mutableStateOf(if (isActive) BottomNavActiveGray else BottomNavInactiveGray)
         }
 
@@ -137,7 +139,12 @@ private fun AppBarItem(
         )
         Text(
             text = label,
-            style = MaterialTheme.typography.caption,
+            style = MaterialTheme.typography.caption.run {
+                if (isActive)
+                    copy(fontWeight = FontWeight.Medium)
+                else
+                    this
+            },
             color = color
         )
     }

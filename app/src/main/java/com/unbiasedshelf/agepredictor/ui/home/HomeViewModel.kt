@@ -16,9 +16,6 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val repository: AgifyRepository
 ) : ViewModel() {
-    init {
-        println("HomeViewModel: created")
-    }
     var name by mutableStateOf("")
     var ageStatus: Status<Int>? by mutableStateOf(null)
 

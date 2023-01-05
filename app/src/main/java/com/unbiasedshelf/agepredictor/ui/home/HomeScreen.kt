@@ -15,9 +15,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -99,7 +101,7 @@ private fun SearchBar(
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterialApi::class, ExperimentalComposeUiApi::class)
 @Composable
 private fun SearchTextField(
     value: String,
@@ -107,13 +109,19 @@ private fun SearchTextField(
     onValueChange: (String) -> Unit,
     onSearchClick: () -> Unit
 ) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+
     BasicTextField(
         value = value,
         onValueChange = onValueChange,
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
         keyboardActions = KeyboardActions(
-            onSearch = { onSearchClick() }
+            onSearch = {
+                onSearchClick()
+                keyboardController?.hide()
+            }
         ),
+        singleLine = true,
         decorationBox = @Composable { innerTextField ->
             TextFieldDefaults.TextFieldDecorationBox(
                 value = value,
