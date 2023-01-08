@@ -5,6 +5,7 @@ Application for predicting age by name using [Agify Api](https://api.agify.io/).
 ## Technologies
 - Kotlin
 - Jetpack Compose
+- MVVM
 - Retrofit
 - Hilt
 - Navigation
